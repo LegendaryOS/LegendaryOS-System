@@ -28,6 +28,7 @@ modules:
         - steam
         - lutris
         - gamescope
+        - wayfire
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
