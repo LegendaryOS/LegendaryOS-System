@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+GAMESCOPE_SESSION_SCRIPT="/usr/lib/os-session-select"
+if [ -f "$GAMESCOPE_SESSION_SCRIPT" ]; then
+	"$GAMESCOPE_SESSION_SCRIPT" "$@"
+else
+	steam -shutdown
+fi
