@@ -1,0 +1,70 @@
+#!/bin/bash
+
+USER_HOME="$HOME"
+GAMESCOPE_BIN="/usr/bin/gamescope"
+
+export PATH="$GAMESCOPE_BIN:$PATH"
+
+function short_session_recover {
+    mkdir -p "$USER_HOME/.local/share/Steam"
+    rm -rf --one-file-system "$USER_HOME/.local/share/Steam/config/widevine"
+    if [[ -f "/etc/first-boot/bootstraplinux_ubuntu12_32.tar.xz" ]]; then
+        tar xf /etc/first-boot/bootstraplinux_ubuntu12_32.tar.xz -C "$USER_HOME/.local/share/Steam"
+    fi
+    steamos-session-select desktop
+}
+
+function post_gamescope_start {
+	if command -v steam-tweaks > /dev/null; then
+		steam-tweaks
+	fi
+}
+
+export STEAM_GAMESCOPE_VRR_SUPPORTED=1
+export STEAM_MANGOAPP_PRESETS_SUPPORTED=1
+export STEAM_USE_MANGOAPP=1
+export STEAM_USE_DYNAMIC_VRS=1
+export STEAM_BOOTSTRAP_CONFIG="${XDG_CONFIG_HOME:-$USER_HOME/.config}/gamescope/bootstrap.cfg"
+mkdir -p "$(dirname "$STEAM_BOOTSTRAP_CONFIG")"
+touch "$STEAM_BOOTSTRAP_CONFIG"
+export STEAM_GAMESCOPE_HAS_TEARING_SUPPORT=1
+export STEAM_GAMESCOPE_TEARING_SUPPORTED=1
+export STEAM_GAMESCOPE_HDR_SUPPORTED=1
+export STEAMOS_STEAM_REBOOT_SENTINEL="/tmp/steamos-reboot-sentinel"
+export REBOOT_SENTINEL="$STEAMOS_STEAM_REBOOT_SENTINEL"
+export STEAMOS_STEAM_SHUTDOWN_SENTINEL="/tmp/steamos-shutdown-sentinel"
+export SHUTDOWN_SENTINEL="$STEAMOS_STEAM_SHUTDOWN_SENTINEL"
+export STEAM_ENABLE_VOLUME_HANDLER=1
+export SRT_URLOPEN_PREFER_STEAM=1
+export STEAM_DISABLE_AUDIO_DEVICE_SWITCHING=1
+export STEAM_MULTIPLE_XWAYLANDS=1
+export STEAM_GAMESCOPE_DYNAMIC_FPSLIMITER=1
+export STEAM_GAMESCOPE_NIS_SUPPORTED=1
+export STEAM_ALLOW_DRIVE_UNMOUNT=1
+export STEAM_DISABLE_MANGOAPP_ATOM_WORKAROUND=1
+export STEAM_MANGOAPP_HORIZONTAL_SUPPORTED=1
+export STEAM_GAMESCOPE_FANCY_SCALING_SUPPORT=1
+export STEAM_GAMESCOPE_COLOR_MANAGED=1
+export STEAM_GAMESCOPE_VIRTUAL_WHITE=1
+export QT_IM_MODULE=steam
+export GTK_IM_MODULE=Steam
+
+if [ -f "/usr/share/HackerOS/ICONS/HackerOS.png" ]; then
+  export STEAM_UPDATEUI_PNG_BACKGROUND=/usr/share/HackerOS/ICONS/HackerOS.png
+fi
+
+export CURSOR_FILE="$USER_HOME/.local/share/Steam/tenfoot/resource/images/cursors/arrow.png"
+
+export CLIENTCMD="$GAMESCOPE_BIN/gamescope -e -f -- steam -gamepadui -steamos3 -steampal -steamdeck"
+
+touch "$USER_HOME/.steam/root/config/SteamAppData.vdf" || true
+
+if [[ -f "/etc/first-boot/bootstraplinux_ubuntu12_32.tar.xz" ]] && ! grep -q "set_bootstrap=1" "$STEAM_BOOTSTRAP_CONFIG"; then
+    mkdir -p "$USER_HOME/.local/share/Steam"
+    tar xf /etc/first-boot/bootstraplinux_ubuntu12_32.tar.xz -C "$USER_HOME/.local/share/Steam"
+    echo "set_bootstrap=1" >> "$STEAM_BOOTSTRAP_CONFIG"
+fi
+
+if command -v steam_notif_daemon > /dev/null; then
+    steam_notif_daemon &
+fi
