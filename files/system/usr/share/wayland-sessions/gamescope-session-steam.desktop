@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=LegendaryOS Game Mode
+Comment=LegendaryOS Steam Big Picture session
+Exec=gamescope-session-plus steam
+Type=Application
+DesktopNames=gamescope
