@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=LegendaryOS Software
+Comment=Software manager.
+Exec=/usr/share/LegendaryOS/SCRIPTS/LegendaryOS-Software
+Icon=/usr/share/LegendaryOS/IMAGES/LegendaryOS-Software.png
+Terminal=false
+Type=Application
+Categories=PackageManager;System;Settings;
+StartupNotify=true
