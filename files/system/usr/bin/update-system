@@ -1,0 +1,3 @@
+#!/bin/bas
+sudo chmod a+x /usr/share/LegendaryOS/SCRIPTS/update-system
+sudo /usr/share/LegendaryOS/SCRIPTS/update-system
