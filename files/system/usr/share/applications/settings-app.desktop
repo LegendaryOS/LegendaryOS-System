@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Settings
+Comment=LegendaryOS Settings
+Exec=/usr/share/LegendaryOS/SCRIPTS/settings-app
+Icon=/usr/share/LegendaryOS/IMAGES/settings-app.png
+Terminal=false
+Type=Application
+Categories=Settings;System;
+StartupNotify=true
