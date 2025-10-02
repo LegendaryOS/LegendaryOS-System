@@ -29,6 +29,10 @@ modules:
         - lutris
         - gamescope
         - wayfire
+        - gamemode
+        - vkbasalt
+        - mangohud
+        - goverlay
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
