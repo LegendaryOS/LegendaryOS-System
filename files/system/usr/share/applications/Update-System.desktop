@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Update System
 Comment=System updater for LegendaryOS
-Exec=update-system
-Icon=update-system
+Exec=/usr/share/LegendaryOS/SCRIPTS/Update-System-withgui.sh
+Icon=/usr/share/LegendaryOS/IMAGES/Update-System.png
 Terminal=false
 Type=Application
 Categories=System;Utility;
